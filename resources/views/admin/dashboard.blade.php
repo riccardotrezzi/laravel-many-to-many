@@ -7,11 +7,12 @@
         <div class="col">
             <div class="card">
                 <div class="card-body">
-                    <h1 class="text-center text-success">
+                    <h1 class="text-center text-success mb-4">
                         Sei loggato!
                     </h1>
-                    <br>
-                    La dashboard è una pagina privata (protetta dal middleware)
+                    <a href="{{ route('admin.projects.index') }}" class="btn btn-primary d-flex justify-content-center">
+                        Vai ai miei progetti!
+                    </a>
                 </div>
             </div>
         </div>

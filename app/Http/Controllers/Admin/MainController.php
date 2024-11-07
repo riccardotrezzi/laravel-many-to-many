@@ -12,5 +12,10 @@ class MainController extends Controller
     {
         return view('admin.dashboard');
     }
+    
+    public function projects()
+    {
+        return view('admin.projects.index');
+    }
 
 }
