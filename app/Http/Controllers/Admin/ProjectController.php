@@ -9,6 +9,9 @@ use App\Http\Controllers\Controller;
 //model
 use App\Models\Project;
 
+//HELPERS
+use Illuminate\Support\Facade\Storage;
+
 class ProjectController extends Controller
 {
     /**
@@ -37,7 +40,7 @@ class ProjectController extends Controller
         $request->validate([
             'title' => 'required|max:128|min:3',
             'description' => 'required|max:4096|min:3',
-            'img' => 'nullable|max:2048|url',
+            'img' => 'nullable|max:2048|image',
             'project_date' => 'nullable|date',
             'project_type' => 'required|max:32|min:3',
         ]);
@@ -52,6 +55,10 @@ class ProjectController extends Controller
         $project->save();
 
         $project = Project::create($data);
+
+
+        $imgPath = Storage::put('uploads', $data['img']);
+        $data['img'] = $imgPath;
 
         return redirect()->route('admin.project.show', ['project' => $project->id]);
     }

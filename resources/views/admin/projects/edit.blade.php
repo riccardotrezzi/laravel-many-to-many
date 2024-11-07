@@ -19,7 +19,7 @@
 
 @endif
 
-<form action="{{ route('admin.projects.store') }}" method="POST">
+<form action="{{ route('admin.projects.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     @method('PUT')
 
@@ -30,7 +30,7 @@
 
     <div class="mb-3">
         <label for="img" class="form-label">Copertina</label>
-        <input type="text" class="form-control" id="img" name="img" maxlength="2048" value="{{ $project->img }}" placeholder="Inserisci la copertina...">
+        <input type="file" class="form-control" id="img" name="img" maxlength="2048" value="{{ $project->img }}" placeholder="Inserisci la copertina...">
     </div>
 
     <div class="mb-3">
