@@ -7,18 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 //model
-use App\Models\Project;
+use App\Models\Technology;
 
-class ProjectController extends Controller
+class TechnologyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $projects = Project::all();
+        $technologies = Technology::all();
 
-        return view('admin.projects.index', compact('projects'));
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        return view('admin.projects.create');
+        return view('admin.technologies.create');
     }
 
     /**
@@ -36,32 +36,24 @@ class ProjectController extends Controller
     {
         $request->validate([
             'title' => 'required|max:128|min:3',
-            'description' => 'required|max:4096|min:3',
-            'img' => 'nullable|max:2048|url',
-            'project_date' => 'nullable|date',
-            'project_type' => 'required|max:32|min:3',
         ]);
 
         $data = $request->all();
-        $project = new Project();
-        $project->title = $data['title'];
-        $project->description = $data['description'];
-        $project->img = $data['img'];
-        $project->project_date = $data['project_date'];
-        $project->project_type = $data['project_type'];
-        $project->save();
+        $technology = new Technology();
+        $technology->title = $data['title'];
+        $technology->save();
 
-        $project = Project::create($data);
+        $technology = Technology::create($data);
 
-        return redirect()->route('admin.project.show', ['project' => $project->id]);
+        return redirect()->route('admin.technologies.show', ['technology' => $technology->id]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Project $project)
+    public function show(Technology $technology)
     {
-        return view('admin.projects.show', compact('project'));
+        return view('admin.technologies.show', compact('technology'));
     }
 
     /**
@@ -69,36 +61,32 @@ class ProjectController extends Controller
      */
     public function edit(string $id)
     {
-        $project = Project::findOrFail($id);
-        return view('admin.projects.edit', compact('project'));
+        $technology = Technology::findOrFail($id);
+        return view('admin.technologies.edit', compact('technology'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Project $project)
+    public function update(Request $request, Technology $technology)
     {
-        $project = Project::findOrFail($id);
+        $technology = Technology::findOrFail($id);
         $data = $request->all();
         
         $project->title = $data['title'];
-        $project->description = $data['description'];
-        $project->img = $data['img'];
-        $project->project_date = $data['project_date'];
-        $project->project_type = $data['project_type'];
         $project->save();
 
         $project->update($data);
 
-        return redirect()->route('admin.project.show', ['project' => $project->id]);
+        return redirect()->route('admin.technologies.show', ['technology' => $technology->id]);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Project $project)
+    public function destroy(Technology $technology)
     {
-        $project->delete();
-        return redirect()->route('admin.projects.index');
+        $technology->delete();
+        return redirect()->route('admin.technologies.index');
     }
 }

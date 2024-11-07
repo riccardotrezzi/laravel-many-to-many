@@ -7,6 +7,9 @@ use Illuminate\Database\Seeder;
 
 //Model
 use App\Models\Project;
+use App\Models\Technology;
+use App\Models\Type;
+
 
 class ProjectSeeder extends Seeder
 {
